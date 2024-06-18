@@ -9,17 +9,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "Stock")
 public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_stock")
-    protected long idStock;
+    private long idStock;
 
     @ManyToOne
-    @JoinColumn(name = "id_producto", nullable = false)
-    protected Producto producto;
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
 
-    public Stock(long idStock, Producto producto){
+    public Stock(long idStock, Producto producto) {
         this.idStock = idStock;
         this.producto = producto;
     }

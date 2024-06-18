@@ -9,15 +9,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name="Producto")
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_producto")
+    @Column(name = "id_producto") 
     private long idProducto;
-
+    @Column(name = "codigo")
     private String codigo;
+    @Column(name = "descripcion")
     private String descripcion;
+    @Column(name = "costo")
     private double costo;
+    @Column(name = "precioVenta")
     private double precioVenta;
 
     public Producto(long idProducto, String codigo, String descripcion, double costo, double precioVenta){
