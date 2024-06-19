@@ -4,36 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Productos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        td {
+            background-color: #f2f2f2;
+        }
+        a {
+            display: inline-block;
+            padding: 8px 16px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #c82333;
+        }
+    </style>
 </head>
 <body>
-    <h1>Lista de Productos</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-                <th>Costo</th>
-                <th>Precio de Venta</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="producto : ${productos}">
-                <td th:text="${producto.codigo}">Código</td>
-                <td th:text="${producto.descripcion}">Descripción</td>
-                <td th:text="${producto.costo}">Costo</td>
-                <td th:text="${producto.precioVenta}">Precio de Venta</td>
-                <td>
-                    <a th:href="@{/productos/{id}(id=${producto.idProducto})}">Ver Detalles</a>
-                    <a th:href="@{/productos/{id}/editar(id=${producto.idProducto})}">Editar</a>
-                    <form th:action="@{/productos/{id}/eliminar(id=${producto.idProducto})}" method="post">
-                        <input type="hidden" name="_method" value="DELETE"/>
-                        <button type="submit">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <a href="/productos/nuevo">Agregar Nuevo Producto</a>
+    <div class="container">
+        <h1>Lista de Productos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Costo</th>
+                    <th>Precio de Venta</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="producto : ${productos}">
+                    <td th:text="${producto.codigo}">Código</td>
+                    <td th:text="${producto.descripcion}">Descripción</td>
+                    <td th:text="${#numbers.formatDecimal(producto.costo, 2, 'POINT', 2, 'COMMA')}">Costo</td>
+                    <td th:text="${#numbers.formatDecimal(producto.precioVenta, 2, 'POINT', 2, 'COMMA')}">Precio de Venta</td>
+                    <td>
+                        <a th:href="@{/productos/{id}(id=${producto.idProducto})}">Ver Detalles</a>
+                        <a th:href="@{/productos/{id}/editar(id=${producto.idProducto})}">Editar</a>
+                        <form th:action="@{/productos/{id}/eliminar(id=${producto.idProducto})}" method="post" style="display: inline;">
+                            <input type="hidden" name="_method" value="DELETE"/>
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/productos/nuevo" class="btn btn-primary">Agregar Nuevo Producto</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

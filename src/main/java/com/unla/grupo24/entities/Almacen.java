@@ -29,7 +29,7 @@ public class Almacen {
 
     @OneToMany(mappedBy = "almacen")
     private Set<Lote> lotes;
-
+    public Almacen() {}
     public Almacen(long idAlmacen, int cantidadActual, int cantidadCritica, String ubicacion) {
         this.idAlmacen = idAlmacen;
         this.cantidadActual = cantidadActual;

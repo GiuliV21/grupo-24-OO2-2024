@@ -24,14 +24,19 @@ public class Pedido {
     @Column(name = "fecha_pedido")
     private LocalDate fechaPedido;
     
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_producto")
+    private Producto producto;
+    
     public Pedido() {
     	
     }
 
-    public Pedido(long idPedido, int cantidadSolicitada, LocalDate fechaPedido) {
-        this.idPedido = idPedido;
+
+    public Pedido(int cantidadSolicitada, LocalDate fechaPedido, Producto producto) {
         this.cantidadSolicitada = cantidadSolicitada;
         this.fechaPedido = fechaPedido;
+        this.producto = producto;
     }
 
 	public long getIdPedido() {
@@ -58,5 +63,11 @@ public class Pedido {
 		this.fechaPedido = fechaPedido;
 	}
 
+    public Producto getProducto() {
+        return producto;
+    }
 
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
 }

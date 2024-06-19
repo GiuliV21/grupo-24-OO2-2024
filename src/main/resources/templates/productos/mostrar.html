@@ -4,34 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles del Producto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        div {
+            margin-bottom: 10px;
+        }
+        a {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-right: 10px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #c82333;
+        }
+    </style>
 </head>
 <body>
-    <h1>Detalles del Producto</h1>
-    <div>
-        <label>ID:</label>
-        <span th:text="${producto.idProducto}"></span>
+    <div class="container">
+        <h1>Detalles del Producto</h1>
+        <div>
+            <label>ID:</label>
+            <span th:text="${producto.idProducto}"></span>
+        </div>
+        <div>
+            <label>Código:</label>
+            <span th:text="${producto.codigo}"></span>
+        </div>
+        <div>
+            <label>Descripción:</label>
+            <span th:text="${producto.descripcion}"></span>
+        </div>
+        <div>
+            <label>Costo:</label>
+            <span th:text="${#numbers.formatDecimal(producto.costo, 2, 'POINT', 2, 'COMMA')}"></span>
+        </div>
+        <div>
+            <label>Precio de Venta:</label>
+            <span th:text="${#numbers.formatDecimal(producto.precioVenta, 2, 'POINT', 2, 'COMMA')}"></span>
+        </div>
+        <a th:href="@{/productos}" class="btn btn-primary">Volver a la lista</a>
+        <a th:href="@{/productos/{id}/editar(id=${producto.idProducto})}" class="btn btn-secondary">Editar Producto</a>
+        <form th:action="@{/productos/{id}/eliminar(id=${producto.idProducto})}" method="post" style="display: inline;">
+            <input type="hidden" name="_method" value="DELETE"/>
+            <button type="submit" class="btn btn-danger">Eliminar Producto</button>
+        </form>
     </div>
-    <div>
-        <label>Código:</label>
-        <span th:text="${producto.codigo}"></span>
-    </div>
-    <div>
-        <label>Descripción:</label>
-        <span th:text="${producto.descripcion}"></span>
-    </div>
-    <div>
-        <label>Costo:</label>
-        <span th:text="${producto.costo}"></span>
-    </div>
-    <div>
-        <label>Precio de Venta:</label>
-        <span th:text="${producto.precioVenta}"></span>
-    </div>
-    <a th:href="@{/productos}">Volver a la lista</a>
-    <a th:href="@{/productos/{id}/editar(id=${producto.idProducto})}">Editar Producto</a>
-    <form th:action="@{/productos/{id}/eliminar(id=${producto.idProducto})}" method="post">
-        <input type="hidden" name="_method" value="DELETE"/>
-        <button type="submit">Eliminar Producto</button>
-    </form>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Almacén</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            padding: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        ul li span {
+            font-weight: bold;
+        }
+        .btn-primary {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalles del Almacén</h1>
+        <ul class="list-group">
+            <li class="list-group-item">ID: <span th:text="${almacen.idAlmacen}"></span></li>
+            <li class="list-group-item">Cantidad Actual: <span th:text="${almacen.cantidadActual}"></span></li>
+            <li class="list-group-item">Cantidad Crítica: <span th:text="${almacen.cantidadCritica}"></span></li>
+            <li class="list-group-item">Ubicación: <span th:text="${almacen.ubicacion}"></span></li>
+        </ul>
+        <a href="/almacenes" class="btn btn-primary">Volver al Listado</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

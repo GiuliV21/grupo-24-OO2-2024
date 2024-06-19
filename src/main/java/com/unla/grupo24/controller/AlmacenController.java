@@ -1,65 +1,81 @@
 package com.unla.grupo24.controller;
-
 import com.unla.grupo24.entities.Almacen;
+import com.unla.grupo24.helpers.ViewRouteHelper;
 import com.unla.grupo24.services.AlmacenService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/almacenes")
 public class AlmacenController {
 
     @Autowired
     private AlmacenService almacenService;
 
-    @GetMapping
-    public List<Almacen> getAllAlmacenes() {
-        return almacenService.findAll();
+    @GetMapping("")
+    public String getAllAlmacenes(Model model) {
+        List<Almacen> almacenes = almacenService.findAll();
+        model.addAttribute("almacenes", almacenes);
+        return ViewRouteHelper.ALMACENES;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Almacen> getAlmacenById(@PathVariable Long id) {
-        Optional<Almacen> almacen = almacenService.findById(id);
-        if (almacen.isPresent()) {
-            return ResponseEntity.ok(almacen.get());
+    public String getAlmacenById(@PathVariable Long id, Model model) {
+        Optional<Almacen> almacenOptional = almacenService.findById(id);
+        if (almacenOptional.isPresent()) {
+            Almacen almacen = almacenOptional.get();
+            model.addAttribute("almacen", almacen);
+            return ViewRouteHelper.ALMACENES_MOSTRAR;
         } else {
-            return ResponseEntity.notFound().build();
+            return "redirect:/almacenes";
         }
     }
 
-    @PostMapping
-    public Almacen createAlmacen(@RequestBody Almacen almacen) {
-        return almacenService.save(almacen);
+    @GetMapping("/nuevo")
+    public String nuevoAlmacenForm(Model model) {
+        model.addAttribute("almacen", new Almacen());
+        return ViewRouteHelper.ALMACENES_NUEVO;
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Almacen> updateAlmacen(@PathVariable Long id, @RequestBody Almacen almacen) {
-        Optional<Almacen> existingAlmacen = almacenService.findById(id);
-        if (existingAlmacen.isPresent()) {
-            Almacen updatedAlmacen = existingAlmacen.get();
-            updatedAlmacen.setCantidadActual(almacen.getCantidadActual());
-            updatedAlmacen.setCantidadCritica(almacen.getCantidadCritica());
-            updatedAlmacen.setUbicacion(almacen.getUbicacion());
-            updatedAlmacen.setLotes(almacen.getLotes());
-            almacenService.save(updatedAlmacen);
-            return ResponseEntity.ok(updatedAlmacen);
+    @PostMapping("/crear")
+    public String createAlmacen(@ModelAttribute Almacen almacen) {
+        almacenService.save(almacen);
+        return "redirect:/almacenes";
+    }
+
+    @GetMapping("/{id}/editar")
+    public String editarAlmacenForm(@PathVariable Long id, Model model) {
+        Optional<Almacen> almacenOptional = almacenService.findById(id);
+        if (almacenOptional.isPresent()) {
+            Almacen almacen = almacenOptional.get();
+            model.addAttribute("almacen", almacen);
+            return ViewRouteHelper.ALMACENES_EDITAR;
         } else {
-            return ResponseEntity.notFound().build();
+            return "redirect:/almacenes";
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAlmacen(@PathVariable Long id) {
-        if (almacenService.findById(id).isPresent()) {
-            almacenService.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
+    @PostMapping("/{id}/actualizar")
+    public String updateAlmacen(@PathVariable Long id, @ModelAttribute Almacen almacen) {
+        Optional<Almacen> existingAlmacenOptional = almacenService.findById(id);
+        if (existingAlmacenOptional.isPresent()) {
+            Almacen existingAlmacen = existingAlmacenOptional.get();
+            existingAlmacen.setCantidadActual(almacen.getCantidadActual());
+            existingAlmacen.setCantidadCritica(almacen.getCantidadCritica());
+            existingAlmacen.setUbicacion(almacen.getUbicacion());
+            almacenService.save(existingAlmacen);
         }
+        return "redirect:/almacenes";
+    }
+
+    @PostMapping("/{id}/eliminar")
+    public String deleteAlmacen(@PathVariable Long id) {
+        almacenService.deleteById(id);
+        return "redirect:/almacenes";
     }
 }

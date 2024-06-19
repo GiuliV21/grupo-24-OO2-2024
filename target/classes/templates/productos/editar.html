@@ -4,21 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Producto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button[type="submit"],
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover,
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Editar Producto</h1>
-    <form th:action="@{/productos/{id}/actualizar(id=${producto.idProducto})}" method="post">
-        <input type="hidden" name="_method" value="PUT"/>
-        <label for="codigo">Código:</label>
-        <input type="text" id="codigo" name="codigo" th:value="${producto.codigo}" required><br>
-        <label for="descripcion">Descripción:</label>
-        <input type="text" id="descripcion" name="descripcion" th:value="${producto.descripcion}" required><br>
-        <label for="costo">Costo:</label>
-        <input type="number" id="costo" name="costo" th:value="${producto.costo}" step="0.01" required><br>
-        <label for="precioVenta">Precio de Venta:</label>
-        <input type="number" id="precioVenta" name="precioVenta" th:value="${producto.precioVenta}" step="0.01" required><br>
-        <button type="submit">Guardar Cambios</button>
-    </form>
-    <a href="/productos">Cancelar</a>
+    <div class="container">
+        <h1>Editar Producto</h1>
+        <form th:action="@{/productos/{id}/actualizar(id=${producto.idProducto})}" method="post">
+            <input type="hidden" name="_method" value="PUT"/>
+            <div>
+                <label for="codigo">Código:</label>
+                <input type="text" id="codigo" name="codigo" th:value="${producto.codigo}" required>
+            </div>
+            <div>
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" name="descripcion" th:value="${producto.descripcion}" required>
+            </div>
+            <div>
+                <label for="costo">Costo:</label>
+                <input type="number" id="costo" name="costo" th:value="${producto.costo}" step="0.01" required>
+            </div>
+            <div>
+                <label for="precioVenta">Precio de Venta:</label>
+                <input type="number" id="precioVenta" name="precioVenta" th:value="${producto.precioVenta}" step="0.01" required>
+            </div>
+            <button type="submit">Guardar Cambios</button>
+        </form>
+        <a href="/productos" class="btn btn-secondary">Cancelar</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

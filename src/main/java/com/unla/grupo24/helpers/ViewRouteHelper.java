@@ -22,4 +22,18 @@ public class ViewRouteHelper {
 	public static final String EDITAR_PRODUCTO = "/productos/editar";
 	public static final String DETALLE_PRODUCTO = "/productos/mostrar";
 	
+	
+	//PEDIDOS
+	public static final String PEDIDOS = "/pedidos/index";
+	public static final String NUEVO_PEDIDO = "/pedidos/agregar";
+	public static final String EDITAR_PEDIDO = "/pedidos/editar";
+	public static final String DETALLE_PEDIDO = "/pedidos/mostrar";
+	
+	   // Rutas relacionadas con los almacenes
+    public static final String ALMACENES = "almacenes/index"; // Vista para mostrar todos los almacenes
+    public static final String ALMACENES_MOSTRAR = "almacenes/mostrar"; // Vista para mostrar un almacén específico
+    public static final String ALMACENES_NUEVO = "almacenes/agregar"; // Vista para crear un nuevo almacén
+    public static final String ALMACENES_EDITAR = "almacenes/editar"; // Vista para editar un almacén
 }
+	
+
