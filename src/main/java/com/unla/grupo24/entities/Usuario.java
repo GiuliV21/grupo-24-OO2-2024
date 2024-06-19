@@ -1,5 +1,12 @@
 package com.unla.grupo24.entities;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,59 +17,99 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(name = "Usuario")
+
 public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
-    private long idUsuario;
 
-    @Column(name = "nombre_usuario")
-    private String nombreUsuario;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-    @Column(name = "contrasenia")
-    private String contrasenia;
+	@Column(name="username", unique=true, nullable=false, length=45)
+	private String username;
 
-    @OneToOne(mappedBy = "usuario")
-    private RolUsuario rol;
+	@Column(name="password", nullable=false, length=60)
+	private String password;
 
-    public Usuario(long idUsuario, String nombreUsuario, String contrasenia) {
-        this.idUsuario = idUsuario;
-        this.nombreUsuario = nombreUsuario;
-        this.contrasenia = contrasenia;
-    }
+	private boolean enabled;
 
-	public long getIdUsuario() {
-		return idUsuario;
+	@CreationTimestamp
+	private LocalDateTime createdAt;
+
+	@UpdateTimestamp
+	private LocalDateTime updatedAt;
+
+	  @OneToMany(fetch=FetchType.LAZY, mappedBy="user") 
+	    private Set<RolUsuario> userRoles = new HashSet<>();
+
+	public Usuario(String username, String password, boolean enabled) {
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
 	}
 
-	public void setIdUsuario(long idUsuario) {
-		this.idUsuario = idUsuario;
+	public Usuario(String username, String password, boolean enabled, Set<RolUsuario> userRoles) {
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.userRoles = userRoles;
 	}
 
-	public String getNombreUsuario() {
-		return nombreUsuario;
+	public int getId() {
+		return id;
 	}
 
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getContrasenia() {
-		return contrasenia;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setContrasenia(String contrasenia) {
-		this.contrasenia = contrasenia;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public RolUsuario getRol() {
-		return rol;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setRol(RolUsuario rol) {
-		this.rol = rol;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
 
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public Set<RolUsuario> getUserRoles() {
+		return userRoles;
+	}
+
+	public void setUserRoles(Set<RolUsuario> userRoles) {
+		this.userRoles = userRoles;
+	}
+	
+	
 	
 }
