@@ -56,7 +56,7 @@ public class PedidoController {
         Optional<Producto> productoOptional = productoService.findById(productoId);
         if (productoOptional.isPresent()) {
             pedido.setProducto(productoOptional.get());
-            pedido.setFechaPedido(LocalDate.now()); // Asignar la fecha actual al pedido
+            pedido.setFechaPedido(LocalDate.now()); 
             pedidoService.save(pedido);
         }
         return "redirect:/pedidos";

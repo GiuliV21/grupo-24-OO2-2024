@@ -67,14 +67,14 @@
             </thead>
             <tbody>
                 <tr th:each="pedido : ${pedidos}">
-                    <td th:text="${pedido.idPedido}"></td>
+                    <td th:text="${pedido.idStock}"></td>
                     <td th:text="${pedido.producto.descripcion}"></td>
                     <td th:text="${pedido.cantidadSolicitada}"></td>
                     <td th:text="${#temporals.format(pedido.fechaPedido, 'dd/MM/yyyy')}"></td>
                     <td>
-                        <a class="btn btn-primary" th:href="@{/pedidos/{id}(id=${pedido.idPedido})}">Ver</a>
-                        <a class="btn btn-warning" th:href="@{/pedidos/{id}/editar(id=${pedido.idPedido})}">Editar</a>
-                        <form th:action="@{/pedidos/{id}/eliminar(id=${pedido.idPedido})}" method="post" style="display:inline;">
+                        <a class="btn btn-primary" th:href="@{/pedidos/{id}(id=${pedido.idStock})}">Ver</a>
+                        <a class="btn btn-warning" th:href="@{/pedidos/{id}/editar(id=${pedido.idStock})}">Editar</a>
+                        <form th:action="@{/pedidos/{id}/eliminar(id=${pedido.idStock})}" method="post" style="display:inline;">
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
                     </td>

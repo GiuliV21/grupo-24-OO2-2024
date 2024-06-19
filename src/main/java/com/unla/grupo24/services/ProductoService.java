@@ -8,6 +8,7 @@ import com.unla.grupo24.repositories.ProductoRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductoService {
@@ -29,5 +30,17 @@ public class ProductoService {
 
     public void deleteById(Long id) {
         productoRepository.deleteById(id);
+    }
+
+    public List<Producto> findDistinctProductosByAlmacen() {
+        // Obtener todos los productos
+        List<Producto> productos = productoRepository.findAll();
+
+        // Utilizar Stream API para obtener una lista de productos únicos
+        List<Producto> productosUnicos = productos.stream()
+                                            .distinct() // Eliminar duplicados
+                                            .collect(Collectors.toList());
+
+        return productosUnicos;
     }
 }

@@ -1,8 +1,10 @@
 package com.unla.grupo24.controller;
 
 import com.unla.grupo24.entities.Producto;
+import com.unla.grupo24.entities.Stock;
 import com.unla.grupo24.helpers.ViewRouteHelper;
 import com.unla.grupo24.services.ProductoService;
+import com.unla.grupo24.services.StockService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,8 @@ public class ProductoController {
 
     @Autowired
     private ProductoService productoService;
+    @Autowired
+    private StockService stockService;
 
     @GetMapping("")
     public String getAllProductos(Model model) {
@@ -47,6 +51,9 @@ public class ProductoController {
     @PostMapping("/crear")
     public String createProducto(@ModelAttribute Producto producto) {
         productoService.save(producto);
+        Stock stock= new Stock();
+        stock.setProducto(producto);
+        stockService.save(stock);
         return "redirect:/productos";
     }
 

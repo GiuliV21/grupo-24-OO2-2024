@@ -12,62 +12,40 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @Table(name = "Pedido")
-public class Pedido {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_pedido")
-    private long idPedido;
+public class Pedido extends Stock {
 
     @Column(name = "cantidad_solicitada")
     private int cantidadSolicitada;
 
     @Column(name = "fecha_pedido")
     private LocalDate fechaPedido;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_producto")
-    private Producto producto;
-    
+
     public Pedido() {
-    	
+        super();
     }
 
-
-    public Pedido(int cantidadSolicitada, LocalDate fechaPedido, Producto producto) {
+    public Pedido(long idStock, Producto producto, int cantidadSolicitada, LocalDate fechaPedido) {
+        super(idStock, producto);
         this.cantidadSolicitada = cantidadSolicitada;
         this.fechaPedido = fechaPedido;
-        this.producto = producto;
     }
 
-	public long getIdPedido() {
-		return idPedido;
-	}
-
-	public void setIdPedido(long idPedido) {
-		this.idPedido = idPedido;
-	}
-
-	public int getCantidadSolicitada() {
-		return cantidadSolicitada;
-	}
-
-	public void setCantidadSolicitada(int cantidadSolicitada) {
-		this.cantidadSolicitada = cantidadSolicitada;
-	}
-
-	public LocalDate getFechaPedido() {
-		return fechaPedido;
-	}
-
-	public void setFechaPedido(LocalDate fechaPedido) {
-		this.fechaPedido = fechaPedido;
-	}
-
-    public Producto getProducto() {
-        return producto;
+    // Getters and setters
+    public int getCantidadSolicitada() {
+        return cantidadSolicitada;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setCantidadSolicitada(int cantidadSolicitada) {
+        this.cantidadSolicitada = cantidadSolicitada;
     }
+
+    public LocalDate getFechaPedido() {
+        return fechaPedido;
+    }
+
+    public void setFechaPedido(LocalDate fechaPedido) {
+        this.fechaPedido = fechaPedido;
+    }
+    
+    
 }

@@ -33,14 +33,66 @@ public class Lote {
 
     @ManyToOne
     @JoinColumn(name = "proveedor_id")
-    private Proveedor proveedor;
+    protected Proveedor proveedor;
 
-    public Lote() {}
-    
     public Lote(long idLote, int cantidadRecibida, LocalDate fechaRecepcion, double precioCompra) {
         this.idLote = idLote;
         this.cantidadRecibida = cantidadRecibida;
         this.fechaRecepcion = fechaRecepcion;
         this.precioCompra = precioCompra;
     }
+
+	public Lote() {
+		
+	}
+
+	public long getIdLote() {
+		return idLote;
+	}
+
+	public void setIdLote(long idLote) {
+		this.idLote = idLote;
+	}
+
+	public int getCantidadRecibida() {
+		return cantidadRecibida;
+	}
+
+	public void setCantidadRecibida(int cantidadRecibida) {
+		this.cantidadRecibida = cantidadRecibida;
+	}
+
+	public LocalDate getFechaRecepcion() {
+		return fechaRecepcion;
+	}
+
+	public void setFechaRecepcion(LocalDate fechaRecepcion) {
+		this.fechaRecepcion = fechaRecepcion;
+	}
+
+	public double getPrecioCompra() {
+		return precioCompra;
+	}
+
+	public void setPrecioCompra(double precioCompra) {
+		this.precioCompra = precioCompra;
+	}
+
+	public Almacen getAlmacen() {
+		return almacen;
+	}
+
+	public void setAlmacen(Almacen almacen) {
+		this.almacen = almacen;
+	}
+
+	public Proveedor getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
+	}
+    
+    
 }

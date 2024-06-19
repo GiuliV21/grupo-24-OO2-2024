@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Almacenes</title>
+    <title>Lista de Lotes</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -36,9 +36,6 @@
         th {
             background-color: #e9ecef;
         }
-        .btn-container {
-            text-align: right;
-        }
         .btn-primary {
             display: inline-block;
             margin-top: 10px;
@@ -57,39 +54,38 @@
 </head>
 <body>
     <div class="container">
-        <h1>Listado de Almacenes</h1>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Cantidad Actual</th>
-                        <th>Cantidad Crítica</th>
-                        <th>Ubicación</th>
-                        <th>Producto</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="almacen : ${almacenes}">
-                        <td th:text="${almacen.idAlmacen}"></td>
-                        <td th:text="${almacen.cantidadActual}"></td>
-                        <td th:text="${almacen.cantidadCritica}"></td>
-                        <td th:text="${almacen.ubicacion}"></td>
-                        <td th:text="${almacen.stock.producto.descripcion}"></td>
-                        <td>
-                            <a class="btn btn-warning" th:href="@{/almacenes/{id}/editar(id=${almacen.idAlmacen})}">Editar</a>
-                            <form th:action="@{/almacenes/{id}/eliminar(id=${almacen.idAlmacen})}" method="post" style="display:inline;">
-                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="btn-container">
-            <a href="/almacenes/nuevo" class="btn btn-primary">Agregar Nuevo Almacén</a>
-        </div>
+        <h1 class="my-4">Lista de Lotes</h1>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Cantidad Recibida</th>
+                    <th>Fecha de Recepción</th>
+                    <th>Precio de Compra</th>
+                    <th>Almacén</th>
+                    <th>Proveedor</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="lote : ${lotes}">
+                    <td th:text="${lote.idLote}"></td>
+                    <td th:text="${lote.cantidadRecibida}"></td>
+                    <td th:text="${#temporals.format(lote.fechaRecepcion, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${lote.precioCompra}"></td>
+                    <td th:text="${lote.almacen.idAlmacen}"></td>
+                    <td th:text="${lote.proveedor.nombre}"></td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{/lotes/{id}(id=${lote.idLote})}">Ver</a>
+                        <a class="btn btn-warning" th:href="@{/lotes/{id}/editar(id=${lote.idLote})}">Editar</a>
+                        <form th:action="@{/lotes/{id}/eliminar(id=${lote.idLote})}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/lotes/nuevo" class="btn btn-success">Agregar Nuevo Lote</a>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

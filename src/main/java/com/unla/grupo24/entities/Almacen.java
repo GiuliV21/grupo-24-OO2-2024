@@ -27,15 +27,25 @@ public class Almacen {
     @Column(name = "ubicacion")
     private String ubicacion;
 
+    @OneToOne
+    @JoinColumn(name = "id_stock")
+    public Stock stock;
+    
     @OneToMany(mappedBy = "almacen")
     private Set<Lote> lotes;
     public Almacen() {}
-    public Almacen(long idAlmacen, int cantidadActual, int cantidadCritica, String ubicacion) {
-        this.idAlmacen = idAlmacen;
-        this.cantidadActual = cantidadActual;
-        this.cantidadCritica = cantidadCritica;
-        this.ubicacion = ubicacion;
-    }
+   
+ 
+	public Almacen(long idAlmacen, int cantidadActual, int cantidadCritica, String ubicacion, Stock stock,
+			Set<Lote> lotes) {
+		this.idAlmacen = idAlmacen;
+		this.cantidadActual = cantidadActual;
+		this.cantidadCritica = cantidadCritica;
+		this.ubicacion = ubicacion;
+		this.stock = stock;
+		this.lotes = lotes;
+	}
+
 
 	public long getIdAlmacen() {
 		return idAlmacen;
@@ -75,6 +85,12 @@ public class Almacen {
 
 	public void setLotes(Set<Lote> lotes) {
 		this.lotes = lotes;
+	}
+	public Stock getStock() {
+		return stock;
+	}
+	public void setStock(Stock stock) {
+		this.stock = stock;
 	}
 
 
