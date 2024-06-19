@@ -1,50 +1,49 @@
 package com.unla.grupo24.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.unla.grupo24.entities.Usuario;
+import com.unla.grupo24.entities.RolUsuario;
 import com.unla.grupo24.repositories.UsuarioRepository;
 
-import java.util.List;
-import java.util.Optional;
-
-@Service
+@Service("userService")
 public class UsuarioService implements UserDetailsService {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+	private UsuarioRepository userRepository;
 
-    public List<Usuario> findAll() {
-        return usuarioRepository.findAll();
-    }
+	public UsuarioService(UsuarioRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 
-    public Optional<Usuario> findById(Long id) {
-        return usuarioRepository.findById(id);
-    }
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		com.unla.grupo24.entities.Usuario user = userRepository.findByUsernameAndFetchUserRolesEagerly(username);
+		return buildUser(user, buildGrantedAuthorities(user.getUserRoles()));
+	}
 
-    public Usuario save(Usuario usuario) {
-        return usuarioRepository.save(usuario);
-    }
+	private User buildUser(com.unla.grupo24.entities.Usuario user, List<GrantedAuthority> grantedAuthorities) {
+		return new User(user.getUsername(), user.getPassword(), user.isEnabled(),
+						true, true, true, //accountNonExpired, credentialsNonExpired, accountNonLocked,
+						grantedAuthorities);
+	}
 
-    public void deleteById(Long id) {
-        usuarioRepository.deleteById(id);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByNombreUsuario(nombreUsuario);
-        if (usuario == null) {
-            throw new UsernameNotFoundException("Usuario no encontrado");
-        }
-        return User.builder()
-                .username(usuario.getNombreUsuario())
-                .password(usuario.getContrasenia())
-                .roles(usuario.getRol().getRol())  
-                .build();
-    }
+	private List<GrantedAuthority> buildGrantedAuthorities(Set<RolUsuario> userRoles) {
+		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+		for(RolUsuario userRole: userRoles) {
+			grantedAuthorities.add(new SimpleGrantedAuthority(userRole.getRole()));
+		}
+		return new ArrayList<>(grantedAuthorities);
+	}
 }
