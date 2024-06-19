@@ -1,0 +1,11 @@
+use bd_stock;
+
+INSERT INTO `usuario` (`id`, `created_at`, `enabled`, `password`, `updated_at`, `username`)
+VALUES ('1', '2023-06-21 12:00:00', true, '$2a$10$dvrayGSAdw8aT.VQrAAzN.K4UJ72Nfcx1eRdnJfrG1c9OKpQpyImm', '2023-06-21 12:00:00', 'user');
+INSERT INTO `user_role` (`id`, `created_at`, `role`, `updated_at`, `usuario_id`)
+VALUES ('1','2023-06-21 12:00:00','ROLE_USER','2023-06-21 12:00:00','1');
+
+INSERT INTO `usuario` (`id`, `created_at`, `enabled`, `password`, `updated_at`, `username`)
+VALUES ('2', '2023-06-21 13:00:00', true, '$2a$10$mOx..msOZCiDm3sc3Hak7urtitkMlYVDJJvjAXvCPrHT0RNoqZUqG', '2023-06-21 13:00:00', 'admin');
+INSERT INTO `user_role` (`id`, `created_at`, `role`, `updated_at`, `usuario_id`)
+VALUES ('2','2023-06-21 13:00:00','ROLE_ADMIN','2023-06-21 13:00:00','2');
