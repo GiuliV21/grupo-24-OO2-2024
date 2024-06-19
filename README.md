@@ -14,7 +14,7 @@
 - Correr el servidor localmente.
 - Ejecutar script `Script SQL.sql`.
 
-## Usuarios creados por el `script base de datos.sql`.
+## Usuarios creados por el ``Script SQL.sql`.
 
 - **Usuario Administrador** username: admin password: admin
 - **Usuario Auditor** username: user password: user
