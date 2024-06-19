@@ -6,43 +6,14 @@
     <title>Agregar Nuevo Almacén</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            font-weight: bold;
-        }
-        .btn {
-            width: 100%;
-        }
-        .cancel-link {
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-        }
+        /* Estilos CSS aquí */
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Agregar Nuevo Almacén</h1>
         <form th:action="@{/almacenes/crear}" method="post">
+            <!-- Otros campos del formulario -->
             <div class="form-group">
                 <label for="cantidadActual">Cantidad Actual:</label>
                 <input type="number" class="form-control" id="cantidadActual" name="cantidadActual" required>
@@ -55,9 +26,16 @@
                 <label for="ubicacion">Ubicación:</label>
                 <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
             </div>
+            <div class="form-group">
+                <label for="producto">Producto:</label>
+                <select class="form-control" id="producto" name="idProducto" required>
+                    <!-- Iterar sobre la lista de stocks y acceder al ID y descripción del producto -->
+                    <option th:each="stock : ${stocks}" th:value="${stock.producto.idProducto}" th:text="${stock.producto.descripcion}"></option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Agregar Almacén</button>
         </form>
-        <a href="/almacenes" class="cancel-link">Cancelar</a>
+        <a href="/almacenes" class="btn btn-secondary">Cancelar</a>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

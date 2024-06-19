@@ -1,14 +1,22 @@
 package com.unla.grupo24.controller;
 import com.unla.grupo24.entities.Almacen;
+import com.unla.grupo24.entities.Producto;
+import com.unla.grupo24.entities.Stock;
 import com.unla.grupo24.helpers.ViewRouteHelper;
 import com.unla.grupo24.services.AlmacenService;
+import com.unla.grupo24.services.ProductoService;
+import com.unla.grupo24.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/almacenes")
@@ -17,6 +25,11 @@ public class AlmacenController {
     @Autowired
     private AlmacenService almacenService;
 
+    @Autowired
+    private ProductoService productoService;
+    @Autowired
+    private StockService stockService;
+    
     @GetMapping("")
     public String getAllAlmacenes(Model model) {
         List<Almacen> almacenes = almacenService.findAll();
@@ -34,18 +47,29 @@ public class AlmacenController {
         } else {
             return "redirect:/almacenes";
         }
-    }
-
+    }  
+    
     @GetMapping("/nuevo")
     public String nuevoAlmacenForm(Model model) {
-        model.addAttribute("almacen", new Almacen());
+        Almacen almacen = new Almacen();
+        List<Producto> productos = productoService.findAll(); 
+        List<Stock> stocks = stockService.findAll(); 
+        model.addAttribute("almacen", almacen);
+        model.addAttribute("productos", productos); 
+        model.addAttribute("stocks", stocks);
         return ViewRouteHelper.ALMACENES_NUEVO;
     }
 
+
     @PostMapping("/crear")
-    public String createAlmacen(@ModelAttribute Almacen almacen) {
-        almacenService.save(almacen);
-        return "redirect:/almacenes";
+    public String createAlmacen(@ModelAttribute Almacen almacen, @RequestParam("idProducto") Long idProducto) {
+    	 Optional<Producto> producto = productoService.findById(idProducto);
+    	 Stock stock = new Stock();
+          stock.setProducto(producto.get());
+          stockService.save(stock);
+          almacen.setStock(stock);
+          almacenService.save(almacen);
+          return "redirect:/almacenes";
     }
 
     @GetMapping("/{id}/editar")

@@ -35,7 +35,7 @@
     <div class="container">
         <h1>Detalle del Pedido</h1>
         <div>
-            <p><strong>ID:</strong> <span th:text="${pedido.idPedido}"></span></p>
+            <p><strong>ID:</strong> <span th:text="${pedido.idStock}"></span></p>
             <p><strong>Producto:</strong> <span th:text="${pedido.producto.descripcion}"></span></p>
             <p><strong>Cantidad Solicitada:</strong> <span th:text="${pedido.cantidadSolicitada}"></span></p>
             <p><strong>Fecha de Pedido:</strong> <span th:text="${#temporals.format(pedido.fechaPedido, 'dd/MM/yyyy')}"></span></p>

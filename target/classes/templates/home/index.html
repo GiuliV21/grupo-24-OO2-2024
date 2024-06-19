@@ -2,58 +2,60 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Inicio</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-	<style>
-		.jumbotron {
-			background-color: #343a40;
-			color: #fff;
-			padding: 2rem;
-		}
+    <style>
+        .jumbotron {
+            background-color: #343a40;
+            color: #fff;
+            padding: 2rem;
+        }
 
-		.lead {
-			font-size: 1.25rem;
-		}
+        .lead {
+            font-size: 1.25rem;
+        }
 
-		.btn-group-container {
-			margin: 0% 0% 8% 8%;
-		}
-	</style>
+        .btn-group-container {
+            margin: 0% 0% 8% 8%;
+        }
+    </style>
 </head>
 
 <body>
-	<nav class="navbar navbar-nav">
-		<div class="container">
-			<a class="navbar-brand" href="/inicio">Inicio</a>
-		</div>
-	</nav>
+    <nav class="navbar navbar-nav">
+        <div class="container">
+            <a class="navbar-brand" href="/inicio">Inicio</a>
+        </div>
+    </nav>
 
-	<nav class="navbar navbar-dark bg-dark text-right">
-		<div class="justify-content-end w-100">
-			<form th:action="@{/logout}" method="post">
-				<input class="btn btn-secondary" type="submit" value="Logout" />
-			</form>
-		</div>
-	</nav>
+    <nav class="navbar navbar-dark bg-dark text-right">
+        <div class="justify-content-end w-100">
+            <form th:action="@{/logout}" method="post">
+                <input class="btn btn-secondary" type="submit" value="Logout" />
+            </form>
+        </div>
+    </nav>
 
-	<div class="jumbotron">
-		<div class="container text-center">
-			<h1 class="display-4">Observa todos los dispositivos de la UNLa</h1>
-			<p class="lead">Puedes ver la lista de dispositivos esparcidos por el campus que contiene la Universidad</p>
-			<hr class="my-4">
-		</div>
-		<div class="btn-group-container">
-			<div class="btn-group-vertical" role="group" aria-label="Lista de botones">
-				<a href="/productos" class="btn btn-primary mb-3">Lista de Productos</a>
-				<a href="/almacenes" class="btn btn-primary mb-3">Lista de Almacenes</a>
-				<a href="/pedidos" class="btn btn-primary mb-3">Lista de pedidos</a>
-				<a href="/ventas" class="btn btn-primary mb-3">Lista de Ventas</a>
-			</div>
-		</div>
-	</div>
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h1 class="display-4">Observa todos los dispositivos de la UNLa</h1>
+            <p class="lead">Puedes ver la lista de dispositivos esparcidos por el campus que contiene la Universidad</p>
+            <hr class="my-4">
+        </div>
+        <div class="btn-group-container">
+            <div class="btn-group-vertical" role="group" aria-label="Lista de botones">
+                <a href="/productos" class="btn btn-primary mb-3">Lista de Productos</a>
+                <a href="/almacenes" class="btn btn-primary mb-3">Lista de Almacenes</a>
+                <a href="/pedidos" class="btn btn-primary mb-3">Lista de pedidos</a>
+                <a href="/ventas" class="btn btn-primary mb-3">Lista de Ventas</a>
+                <!-- Agrega el enlace al índice de lotes -->
+                <a href="/lotes" class="btn btn-primary mb-3">Lista de Lotes</a>
+            </div>
+        </div>
+    </div>
 
 </body>
 

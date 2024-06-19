@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Lote</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .btn {
+            width: 100%;
+        }
+        .cancel-link {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agregar Nuevo Lote</h1>
+        <form th:action="@{/lotes/crear}" method="post">
+            <div class="form-group">
+                <label for="cantidadRecibida">Cantidad Recibida:</label>
+                <input type="number" class="form-control" id="cantidadRecibida" name="cantidadRecibida" required>
+            </div>
+            <div class="form-group">
+                <label for="fechaRecepcion">Fecha de Recepción:</label>
+                <input type="date" class="form-control" id="fechaRecepcion" name="fechaRecepcion" required>
+            </div>
+            <div class="form-group">
+                <label for="precioCompra">Precio de Compra:</label>
+                <input type="number" class="form-control" id="precioCompra" name="precioCompra" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="almacen">Almacén:</label>
+                <select class="form-control" id="almacen" name="almacenId" required>
+                    <option th:each="almacen : ${almacenes}" th:value="${almacen.idAlmacen}" th:text="${almacen.idAlmacen}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="proveedor">Proveedor:</label>
+                <select class="form-control" id="proveedor" name="proveedorId" required>
+                    <option th:each="proveedor : ${proveedores}" th:value="${proveedor.idProveedor}" th:text="${proveedor.nombre}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Lote</button>
+        </form>
+        <a href="/lotes" class="cancel-link">Cancelar</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
