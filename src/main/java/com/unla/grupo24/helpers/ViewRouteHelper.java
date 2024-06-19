@@ -13,5 +13,13 @@ public class ViewRouteHelper {
 	
 	/**** Redirects ****/
 	public final static String ROUTE = "/index";
+	public final static String ESTRUCTURAINICIAL = "/home/index";
+	
+	
+	//PRODUCTOS
+	public static final String PRODUCTOS = "/productos/index";
+	public static final String NUEVO_PRODUCTO = "/productos/agregar";
+	public static final String EDITAR_PRODUCTO = "/productos/editar";
+	public static final String DETALLE_PRODUCTO = "/productos/mostrar";
 	
 }

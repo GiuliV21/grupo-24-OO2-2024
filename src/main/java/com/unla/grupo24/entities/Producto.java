@@ -24,6 +24,9 @@ public class Producto {
     @Column(name = "precioVenta")
     private double precioVenta;
 
+    public Producto(){
+    }
+    
     public Producto(long idProducto, String codigo, String descripcion, double costo, double precioVenta){
         this.idProducto = idProducto;
         this.codigo = codigo;

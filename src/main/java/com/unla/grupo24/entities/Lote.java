@@ -35,6 +35,8 @@ public class Lote {
     @JoinColumn(name = "proveedor_id")
     private Proveedor proveedor;
 
+    public Lote() {}
+    
     public Lote(long idLote, int cantidadRecibida, LocalDate fechaRecepcion, double precioCompra) {
         this.idLote = idLote;
         this.cantidadRecibida = cantidadRecibida;
