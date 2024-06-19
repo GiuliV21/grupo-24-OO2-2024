@@ -9,3 +9,50 @@ INSERT INTO `usuario` (`id`, `created_at`, `enabled`, `password`, `updated_at`, 
 VALUES ('2', '2023-06-21 13:00:00', true, '$2a$10$mOx..msOZCiDm3sc3Hak7urtitkMlYVDJJvjAXvCPrHT0RNoqZUqG', '2023-06-21 13:00:00', 'admin');
 INSERT INTO `user_role` (`id`, `created_at`, `role`, `updated_at`, `usuario_id`)
 VALUES ('2','2023-06-21 13:00:00','ROLE_ADMIN','2023-06-21 13:00:00','2');
+
+
+
+-- Insertar registros en la tabla Producto
+INSERT INTO Producto (codigo, costo, descripcion, precio_venta) VALUES
+('P001', 10.00, 'Producto 1', 20.00),
+('P002', 15.00, 'Producto 2', 30.00),
+('P003', 20.00, 'Producto 3', 40.00);
+
+-- Insertar registros en la tabla Proveedor
+INSERT INTO Proveedor (nombre, num_contacto) VALUES
+('Proveedor A', '123456789'),
+('Proveedor B', '987654321'),
+('Proveedor C', '456789123');
+
+-- Insertar registros en la tabla Stock
+INSERT INTO Stock (producto_id) VALUES
+(1),
+(2),
+(3);
+
+-- Insertar registros en la tabla Almacen
+INSERT INTO Almacen (cantidad_actual, cantidad_critica, ubicacion, id_stock) VALUES
+(50, 10, 'Almacen Central', 1),
+(30, 5, 'Almacen Norte', 2);
+
+-- Insertar registros en la tabla Lote
+INSERT INTO Lote (cantidad_recibida, fecha_recepcion, precio_compra, almacen_id, proveedor_id) VALUES
+(50, '2024-06-01', 10.00, 1, 1),
+(30, '2024-06-05', 15.00, 1, 2),
+(40, '2024-06-10', 20.00, 2, 3);
+
+-- Insertar registros en la tabla Pedido
+INSERT INTO Pedido (cantidad_solicitada, fecha_pedido, id_stock) VALUES
+(20, '2024-06-20', 1),
+(15, '2024-06-21', 2),
+(25, '2024-06-22', 3);
+
+-- Insertar registros en la tabla Venta
+INSERT INTO Venta (fecha,total, usuario_id) VALUES
+('2024-06-15',35 ,2),
+('2024-06-16',40,2);
+
+-- Insertar registros en la tabla ItemVenta
+INSERT INTO Item_Venta (cantidad, precio_unitario, producto_id, venta_id) VALUES
+(2, 20.00, 1, 1),
+(1, 30.00, 2, 2)
