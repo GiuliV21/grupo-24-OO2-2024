@@ -23,6 +23,10 @@ public class Pedido {
 
     @Column(name = "fecha_pedido")
     private LocalDate fechaPedido;
+    
+    public Pedido() {
+    	
+    }
 
     public Pedido(long idPedido, int cantidadSolicitada, LocalDate fechaPedido) {
         this.idPedido = idPedido;

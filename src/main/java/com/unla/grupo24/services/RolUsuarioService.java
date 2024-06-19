@@ -19,7 +19,7 @@ public class RolUsuarioService {
         return rolUsuarioRepository.findAll();
     }
 
-    public Optional<RolUsuario> findById(Long id) {
+    public Optional<RolUsuario> findById(int id) {
         return rolUsuarioRepository.findById(id);
     }
 
@@ -27,7 +27,7 @@ public class RolUsuarioService {
         return rolUsuarioRepository.save(rolUsuario);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(int id) {
         rolUsuarioRepository.deleteById(id);
     }
 }
