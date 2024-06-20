@@ -14,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "Venta")
 public class Venta {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_venta")
@@ -32,12 +33,16 @@ public class Venta {
     @OneToMany(mappedBy = "venta")
     private Set<ItemVenta> itemsVenta;
 
-    public Venta(long idVenta, Usuario cliente, LocalDate fecha, double total) {
+    public Venta() {}
+    
+    public Venta(Usuario cliente, long idVenta, LocalDate fecha, double total, Set<ItemVenta> itemsVenta) {
         this.idVenta = idVenta;
         this.cliente = cliente;
         this.fecha = fecha;
         this.total = total;
+        this.itemsVenta = itemsVenta;
     }
+
 
 	public long getIdVenta() {
 		return idVenta;

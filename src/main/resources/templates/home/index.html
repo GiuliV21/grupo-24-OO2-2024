@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Sistema de Stock</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <style>
         .jumbotron {
-            background-color: #343a40;
+            background-color: #6c757d;
             color: #fff;
-            padding: 2rem;
+            padding: 3rem 1rem;
+            margin-bottom: 0;
         }
 
         .lead {
@@ -19,44 +20,104 @@
         }
 
         .btn-group-container {
-            margin: 0% 0% 8% 8%;
+            margin-top: 2rem;
         }
+
+        .btn-group-vertical .btn {
+            width: 100%;
+        }
+
+        .navbar-custom {
+            background-color: #343a40;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        .navbar-nav {
+            flex-direction: row;
+        }
+
+        .navbar-nav .nav-item + .nav-item {
+            margin-left: 1rem;
+        }
+
+        .nav-link {
+            color: #fff;
+        }
+
+        .nav-link:hover {
+            color: #ffc107;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-nav">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container">
-            <a class="navbar-brand" href="/inicio">Inicio</a>
-        </div>
-    </nav>
-
-    <nav class="navbar navbar-dark bg-dark text-right">
-        <div class="justify-content-end w-100">
-            <form th:action="@{/logout}" method="post">
-                <input class="btn btn-secondary" type="submit" value="Logout" />
+            <a class="navbar-brand" href="/inicio">Sistema de Stock</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/productos">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/almacenes">Almacenes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pedidos">Pedidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ventas">Ventas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lotes">Lotes</a>
+                    </li>
+                </ul>
+            </div>
+            <form th:action="@{/logout}" method="post" class="form-inline my-2 my-lg-0">
+                <input class="btn btn-outline-light my-2 my-sm-0" type="submit" value="Logout" />
             </form>
         </div>
     </nav>
 
-    <div class="jumbotron">
-        <div class="container text-center">
-            <h1 class="display-4">Observa todos los dispositivos de la UNLa</h1>
-            <p class="lead">Puedes ver la lista de dispositivos esparcidos por el campus que contiene la Universidad</p>
+    <div class="jumbotron text-center">
+        <div class="container">
+            <h1 class="display-4">Bienvenido al Sistema de Stock</h1>
+            <p class="lead">Gestiona y visualiza los productos, almacenes, pedidos, ventas y lotes </p>
             <hr class="my-4">
-        </div>
-        <div class="btn-group-container">
-            <div class="btn-group-vertical" role="group" aria-label="Lista de botones">
-                <a href="/productos" class="btn btn-primary mb-3">Lista de Productos</a>
-                <a href="/almacenes" class="btn btn-primary mb-3">Lista de Almacenes</a>
-                <a href="/pedidos" class="btn btn-primary mb-3">Lista de pedidos</a>
-                <a href="/ventas" class="btn btn-primary mb-3">Lista de Ventas</a>
-                <!-- Agrega el enlace al índice de lotes -->
-                <a href="/lotes" class="btn btn-primary mb-3">Lista de Lotes</a>
+            <div class="btn-group-container">
+                <div class="btn-group-vertical" role="group" aria-label="Lista de botones">
+                    <a href="/productos" class="btn btn-primary mb-3">Gestión de Productos</a>
+                    <a href="/almacenes" class="btn btn-primary mb-3">Gestión de Almacenes</a>
+                    <a href="/pedidos" class="btn btn-primary mb-3">Gestión de Pedidos</a>
+                    <a href="/ventas" class="btn btn-primary mb-3">Gestión de Ventas</a>
+                    <a href="/lotes" class="btn btn-primary mb-3">Gestión de Lotes</a>
+                </div>
             </div>
         </div>
     </div>
 
+    <footer class="footer">
+        <div class="container">
+            <span>&copy; 2024 Universidad Nacional de Lanús</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

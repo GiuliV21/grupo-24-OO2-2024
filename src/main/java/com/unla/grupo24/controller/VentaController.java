@@ -1,65 +1,84 @@
 package com.unla.grupo24.controller;
 
+import com.unla.grupo24.entities.ItemVenta;
+import com.unla.grupo24.entities.Producto;
 import com.unla.grupo24.entities.Venta;
+import com.unla.grupo24.services.ProductoService;
 import com.unla.grupo24.services.VentaService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
-@RestController
+@Controller
 @RequestMapping("/ventas")
 public class VentaController {
 
     @Autowired
     private VentaService ventaService;
 
-    @GetMapping
-    public List<Venta> getAllVentas() {
-        return ventaService.findAll();
+    @Autowired
+    private ProductoService productoService;
+
+    @GetMapping("")
+    public String listarVentas(Model model) {
+        List<Venta> ventas = ventaService.findAll();
+        model.addAttribute("ventas", ventas);
+        return "venta/index"; 
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Venta> getVentaById(@PathVariable Long id) {
-        Optional<Venta> venta = ventaService.findById(id);
-        if (venta.isPresent()) {
-            return ResponseEntity.ok(venta.get());
-        } else {
-            return ResponseEntity.notFound().build();
+    @GetMapping("/nueva")
+    public String nuevaVentaForm(Model model) {
+        model.addAttribute("venta", new Venta());
+        model.addAttribute("productos", productoService.findAll());
+        return "venta/nuevaVenta";
+    }
+
+    @PostMapping("/crear")
+    public String crearVenta(@ModelAttribute("venta") Venta venta,
+                             @RequestParam(name = "productos") List<Long> idsProductos,
+                             @RequestParam(name = "cantidades") List<Integer> cantidades,
+                             Model model) {
+        Set<ItemVenta> itemsVenta = new HashSet<>();
+        double total = 0.0;
+
+        if (idsProductos.size() != cantidades.size()) {
+            model.addAttribute("error", "Discrepancia entre los productos y las cantidades proporcionadas.");
+            return "venta/nuevaVenta";
         }
-    }
 
-    @PostMapping
-    public Venta createVenta(@RequestBody Venta venta) {
-        return ventaService.save(venta);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Venta> updateVenta(@PathVariable Long id, @RequestBody Venta venta) {
-        Optional<Venta> existingVenta = ventaService.findById(id);
-        if (existingVenta.isPresent()) {
-            Venta updatedVenta = existingVenta.get();
-            updatedVenta.setCliente(venta.getCliente());
-            updatedVenta.setFecha(venta.getFecha());
-            updatedVenta.setTotal(venta.getTotal());
-            updatedVenta.setItemsVenta(venta.getItemsVenta());
-            ventaService.save(updatedVenta);
-            return ResponseEntity.ok(updatedVenta);
-        } else {
-            return ResponseEntity.notFound().build();
+        for (int i = 0; i < idsProductos.size(); i++) {
+            Optional<Producto> productoOptional = productoService.findById(idsProductos.get(i));
+            if (productoOptional.isPresent()) {
+                Producto producto = productoOptional.get();
+                int cantidad = cantidades.get(i);
+                ItemVenta itemVenta = new ItemVenta();
+                itemVenta.setProducto(producto);
+                itemVenta.setCantidad(cantidad);
+                itemVenta.setPrecioUnitario(producto.getPrecioVenta());
+                itemsVenta.add(itemVenta);
+                total += itemVenta.getSubtotal(); // Calcular subtotal del item
+            } else {
+                model.addAttribute("error", "Producto no encontrado");
+                return "venta/nuevaVenta";
+            }
         }
+
+        venta.setItemsVenta(itemsVenta);
+        venta.setTotal(total);
+        ventaService.save(venta);
+
+        return "redirect:/ventas";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteVenta(@PathVariable Long id) {
-        if (ventaService.findById(id).isPresent()) {
-            ventaService.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/{id}/eliminar")
+    public String eliminarVenta(@PathVariable Long id) {
+        ventaService.deleteById(id);
+        return "redirect:/ventas";
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.unla.grupo24.entities.RolUsuario;
+import com.unla.grupo24.entities.Usuario;
 import com.unla.grupo24.repositories.UsuarioRepository;
 
 @Service("userService")
@@ -46,4 +47,8 @@ public class UsuarioService implements UserDetailsService {
 		}
 		return new ArrayList<>(grantedAuthorities);
 	}
+
+    public Usuario findByName(String username) {
+        return userRepository.findByUsernameAndFetchUserRolesEagerly(username);
+    }
 }

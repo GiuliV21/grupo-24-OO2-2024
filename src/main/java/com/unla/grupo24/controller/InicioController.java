@@ -19,6 +19,12 @@ public class InicioController {
 	public String inicio() {
 		return ViewRouteHelper.INDEX;
 	}
+	
+	//Para poder volver atras desde la navbar
+		@GetMapping("/index")
+		public String inicio3() {
+			return ViewRouteHelper.INDEX;
+		}
 
 	//Para poder volver atras desde la navbar
 	@GetMapping("/inicio")

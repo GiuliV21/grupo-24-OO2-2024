@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Venta</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Otros estilos CSS si son necesarios -->
+</head>
+<body>
+    <div class="container">
+        <h1>Detalle de Venta</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">ID Venta: <span th:text="${venta.idVenta}"></span></h5>
+                <p class="card-text">Cliente: <span th:text="${venta.cliente.nombre}"></span></p>
+                <p class="card-text">Fecha: <span th:text="${#dates.format(venta.fecha, 'dd/MM/yyyy')}"></span></p>
+                <p class="card-text">Total: <span th:text="${venta.total}"></span></p>
+            </div>
+        </div>
+
+        <h2>Productos Vendidos</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Total por Producto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Iterar sobre los items de venta -->
+                <tr th:each="item : ${venta.itemsVenta}">
+                    <td th:text="${item.producto.descripcion}"></td>
+                    <td th:text="${item.cantidad}"></td>
+                    <td th:text="${item.precioUnitario}"></td>
+                    <td th:text="${item.getPrecio()}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/ventas" class="btn btn-secondary">Volver a Ventas</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

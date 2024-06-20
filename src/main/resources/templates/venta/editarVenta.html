@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Venta</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Otros estilos CSS si son necesarios -->
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Venta</h1>
+        <form th:action="@{/ventas/{id}/actualizar(id=${venta.idVenta})}" method="post">
+            <input type="hidden" th:field="*{idVenta}"/>
+            <div>
+                <label for="cliente">Cliente:</label>
+                <input type="text" id="cliente" name="cliente" th:field="*{cliente}" required>
+            </div>
+            <div>
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="fecha" th:value="${#dates.format(venta.fecha, 'yyyy-MM-dd')}" required>
+            </div>
+
+            <div>
+                <h2>Productos</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí puedes mostrar los productos asociados a la venta y permitir editarlos si es necesario -->
+                    </tbody>
+                </table>
+            </div>
+
+            <button type="submit">Actualizar Venta</button>
+        </form>
+        <a href="/ventas" class="btn btn-secondary">Cancelar</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
